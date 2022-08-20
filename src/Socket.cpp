@@ -1,8 +1,6 @@
 #include "Socket.h"
 
 Socket::Socket(string host, int port) {
-    const int CODE_STATUS_ERROR = -1;
-    const int INTERNET_PROTOCOL = 0; // Constante do protocolo IP
     int option_value = 1;
     int is_connected;
 
@@ -60,14 +58,35 @@ bool Socket::listen_socket(int queue_length) {
 }
 
 /**
+* Retorna a primeira conexão na fila de conexões
+*/
+int Socket::accept_socket() {
+    const int socket_accepted = accept(this->socket_descriptor, (struct sockaddr)&client_address, &address_length);
+
+    return socket;
+}
+
+/**
+* Envia dados pelo socket descritor.
+* @return Retorna a quantidade de bytes enviados se tudo ocorrer bem. Se ocorrer algum erro, retorna -1.
+*/
+int send_data(int socket, string message) {
+    const int bytes_sent = send(socket, message.c_str(), message.size(), 0);
+
+    if(bytes_sent == CODE_STATUS_ERROR){
+        cout << "Nao foi possivel enviar a mensagem pelo socket." << endl;
+    }
+
+    return bytes_sent;
+}
+
+/**
 * Fecha a conexão do socket.
 * @param int socket_descriptor: por padrão utiliza o socket embutido na classe que é instanciado no construtor.
 */
 void Socket::close_socket(int *socket_descriptor = this->socket_descriptor) {
     close(socket_descriptor);
 }
-
-
 
 
 
