@@ -17,14 +17,17 @@ Socket::Socket(string host, int port) {
 
     socket_config(host, port);
 
-    is_connected = bind(socket_descriptor, (struct sockaddr*)&server_address, sizeof(server_address));
+    is_connected = bind_socket(socket_descriptor, (struct sockaddr*)&server_address, sizeof(server_address));
 
-    if(is_connected == CODE_STATUS_ERROR){
+    if(is_connected){
+        cout << "Ouvindo na porta " << port << endl;
+        cout << "http://localhost:" << port << endl;
+    }
+    else{
         cout << "Verifique se a porta " << port << " esta ocupada" << endl;
         close(socket_descriptor);
     }
 
-    cout << "Ouvindo na porta " << port << endl;
 }
 
 Socket::~Socket() {
@@ -35,4 +38,11 @@ void Socket::socket_config(string host, int port) {
     server_address.sin_port = htons(port);
     server_address.sin_family = AF_INET;
     inet_aton(host.c_str(), &server_address.sin_addr);
+}
+
+
+bool Socket::bind_socket(int *socket_descriptor, struct sockaddr* client_address) {
+    const int is_binded = bind(socket_descriptor, (struct sockaddr)&client_address, sizeof(client_address));
+
+    return is_binded == 0;
 }
