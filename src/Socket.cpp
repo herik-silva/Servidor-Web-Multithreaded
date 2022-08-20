@@ -27,7 +27,6 @@ Socket::Socket(string host, int port) {
         cout << "Verifique se a porta " << port << " esta ocupada" << endl;
         close(socket_descriptor);
     }
-
 }
 
 Socket::~Socket() {
@@ -40,9 +39,31 @@ void Socket::socket_config(string host, int port) {
     inet_aton(host.c_str(), &server_address.sin_addr);
 }
 
-
+/**
+* Realiza a conexão do socket.
+*/
 bool Socket::bind_socket(int *socket_descriptor, struct sockaddr* client_address) {
     const int is_binded = bind(socket_descriptor, (struct sockaddr)&client_address, sizeof(client_address));
 
     return is_binded == 0;
 }
+
+bool Socket::listen_socket(int queue_length) {
+    const int is_ok = listen(this->socket_descriptor, queue_length);
+    this->close_
+    return is_ok == 0;
+}
+
+/**
+* Fecha a conexão do socket.
+*/
+void Socket::close_socket(int *socket_descriptor = this->socket_descriptor) {
+    close(socket_descriptor);
+}
+
+
+
+
+
+
+

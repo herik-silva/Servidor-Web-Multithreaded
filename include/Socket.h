@@ -11,6 +11,8 @@ class Socket {
         virtual ~Socket();
         void socket_config(string host, int port);
         int bind_socket(int *socket_descriptor, struct socketadd_in *client_address);
+        int listen_socket(int queue_length);
+        void close_socket();
     protected:
 
     private:
