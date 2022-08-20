@@ -37,10 +37,14 @@
 		</Compiler>
 		<Unit filename="include/Databuff.h" />
 		<Unit filename="include/HttpServer.h" />
+		<Unit filename="include/MimeType.h" />
+		<Unit filename="include/ServerResponse.h" />
 		<Unit filename="include/Socket.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Databuff.cpp" />
 		<Unit filename="src/HttpServer.cpp" />
+		<Unit filename="src/MimeType.cpp" />
+		<Unit filename="src/ServerResponse.cpp" />
 		<Unit filename="src/Socket.cpp" />
 		<Extensions />
 	</Project>

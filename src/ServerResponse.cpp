@@ -2,12 +2,6 @@
 
 #define Debug false
 
-ServerResponse::ServerResponse() {}
-
-ServerResponse::~ServerResponse() {
-    //dtor
-}
-
 void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory) {
     string request = "";
     vector<string> extension_list;
@@ -79,5 +73,148 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
 }
 
 void ServerResponse::get_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory, string root, string extension) {
+    string string_aux = "", data = "";
+    int length = 0;
 
+    if(Debug){
+        cout << "Root: " << root << endl;
+    }
+
+    if(arq_stream(root, length, string_aux)){
+
+    }
 }
+
+bool ServerResponse::arq_stream(string root, int &length, string &content_file) {
+    fstream file;
+    file.open(root, fstream::in | fstream::out | fstream::binary);
+
+    if(file.is_open()){
+        // Posicionando a cabeça de leitura no final do arquivo
+        file.seekg(0, ios::end);
+
+        // Tamanho do arquivo lido.
+        length = file.tellg();
+
+        read_file(file, content_file, length);
+
+        return true;
+    }
+    else{
+        file.open(NOT_FOUND, fstream::in | fstream::out | fstream::binary);
+
+        if(file.is_open()){
+            file.seekg(0, ios::end);
+
+            length = file.tellg();
+
+            read_file(file, content_file, length);
+
+            return false;
+        }
+        else{
+            content_file = "404 NOT FOUND\n";
+            length = content_file.size();
+        }
+
+        return false;
+    }
+}
+
+void ServerResponse::read_file(fstream &file, string &content_file, int length) {
+    char *content = new char[length];
+    file.clear();
+    file.seekg(0, ios::beg);
+    file.read(content, length);
+
+    for(int index=0; index<length; index++){
+        content_file += content[index];
+    }
+
+    if(Debug){
+        cout << content_file;
+    }
+
+    file.close();
+    delete[] content;
+    content = nullptr;
+}
+
+string ServerResponse::get_status(int response, int length, string extension) {
+    string text;
+    MimeType mime_type;
+    char data_buffer[256];
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    time (&rawtime);
+    timeinfo = gmtime (&rawtime);
+    strftime(data_buffer, sizeof(data_buffer), "%a, %d %b %Y %H:%M:%S GMT\r\n", timeinfo);
+
+    switch(response){
+        case 1:
+            return get_message(200, string(data_buffer), length, true, extension);
+        case 2:
+            return get_message(404, string(data_buffer), length, false, extension);
+        default:
+            return get_message(400, string(data_buffer), length, false, extension);
+    }
+}
+
+string ServerResponse::check_status(int status_code) {
+    const status_list[3][2] = { {200, "OK"}, {404, "Not Found"}, {400, "Bad Request"} };
+    string selected_status = "";
+    for(int index=0; index<3; index++){
+        if(status_list[index][0] == status_code){
+            selected_status = status_list[index][1];
+        }
+    }
+
+    if(selected_status.size() > 0){
+        return selected_status;
+    }
+
+    throw "status_code invalido";
+}
+
+string ServerResponse::get_message(int status_code, string date_buffer, int content_length, bool use_keep_alive, string extension) {
+    const string status = check_status(status_code);
+    string content_type = "", text = "";
+
+    for(int index=0; index<14; index++){
+        if(mimetype_list[index].get_type() == extension){
+            content_type = mimetype_list[index].get_mime_type();
+        }
+    }
+
+    if(content_type.size() == 0){
+        content_type = "application/" + extension;
+    }
+
+    if(status_code == STATUS_CODE_OK){
+        text = "HTTP/1.1 " + to_string(status_code) + status + "\r\n"
+                            "Connection: Keep-Alive\r\n"
+                            "Date: " + date_buffer +
+                            "Keep-Alive: timeout=4, max=100\r\n"
+                            "Content-Length: " + to_string(content_length) + "\r\n"
+                            "Content-Type: " + content_type + "\n\r; charset=UTF-8\r\n\r\n";
+    }
+    else{
+        text = "HTTP/1.1 " + to_string(status_code) + status + "\r\n"
+                            "Connection: Close\r\n"
+                            "Date: " + date_buffer +
+                            "Content-Length: " + to_string(content_length) + "\r\n"
+                            "Content-Type: " + content_type + "\n\r; charset=UTF-8\r\n\r\n";
+    }
+
+    return text;
+}
+
+
+
+
+
+
+
+
+
