@@ -40,6 +40,7 @@ void Socket::socket_config(string host, int port) {
     server_address.sin_port = htons(port);
     server_address.sin_family = AF_INET;
     inet_aton(host.c_str(), &server_address.sin_addr);
+    memset(server_address.sin_zero, '\0', sizeof(server_address));
 }
 
 /**

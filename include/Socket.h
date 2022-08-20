@@ -7,8 +7,10 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <Databuff.h>
+
 #include <iostream>
-#include <string>
+#include <string.h>
 
 using namespace std;
 
