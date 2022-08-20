@@ -18,6 +18,7 @@ class Socket {
         int accept_socket();
         int send_data(int socket, string message);
         void close_socket();
+        void setTimeOut();
     protected:
 
     private:
