@@ -42,3 +42,40 @@
 1661043278 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/MimeType.h
 	<string>
 
+1661045965 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/main.cpp
+	<string>
+	<iostream>
+	<HttpServer.h>
+
+1661045965 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/HttpServer.h
+	<thread>
+	<Socket.h>
+	<MimeType.h>
+	<string>
+
+1661045965 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/Socket.h
+	<iostream>
+	<string.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<Databuff.h>
+
+1661045965 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/Databuff.h
+	<string.h>
+
+1660970645 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/MimeType.h
+	<string>
+
+1661045965 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/Databuff.cpp
+	"Databuff.h"
+
+1661045965 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/HttpServer.cpp
+	"HttpServer.h"
+
+1661045965 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/Socket.cpp
+	"Socket.h"
+
+1660970639 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/MimeType.cpp
+	"MimeType.h"
+
