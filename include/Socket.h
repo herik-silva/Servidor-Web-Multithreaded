@@ -17,8 +17,9 @@ class Socket {
         bool listen_socket(int queue_length);
         int accept_socket();
         int send_data(int socket, string message);
+        sockaddr_in get_client_address()
         void close_socket();
-        void setTimeOut();
+        void set_time_out();
     protected:
 
     private:

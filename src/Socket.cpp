@@ -70,7 +70,7 @@ int Socket::accept_socket() {
 * Envia dados pelo socket descritor.
 * @return Retorna a quantidade de bytes enviados se tudo ocorrer bem. Se ocorrer algum erro, retorna -1.
 */
-int send_data(int socket, string message) {
+int Socket::send_data(int socket, string message) {
     const int bytes_sent = send(socket, message.c_str(), message.size(), 0); // Por que a flag é 0?
 
     if(bytes_sent == CODE_STATUS_ERROR){
@@ -80,10 +80,14 @@ int send_data(int socket, string message) {
     return bytes_sent;
 }
 
+sockaddr_in Socket::get_client_address() {
+    return client_address;
+}
+
 /**
 * Define o timer de conexão
 */
-void Socket::setTimeOut() {
+void Socket::set_time_out() {
     timeval elapsed_time;
     elapsed_time.tv_sec = time;
     elapsed_time.tv_usec = 0;
