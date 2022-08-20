@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1660651568 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/main.cpp
+	<iostream>
+
+1661027772 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Databuff.cpp
+	"Databuff.h"
+
+1661032677 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Databuff.h
+

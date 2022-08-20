@@ -5,7 +5,7 @@ Socket::Socket(string host, int port) {
     int is_connected;
 
     // Ajuda a evitar erros como endereço já em uso.
-    int successful = setsockopt(socket_instance, SOL_SOCKET, SO_REUSEADDR, &option_value, sizeof(int));
+    int successful = setsockopt(socket_descriptor, SOL_SOCKET, SO_REUSEADDR, &option_value, sizeof(int));
 
     socket_descriptor = socket(AF_INET, SOCK_STREAM, INTERNET_PROTOCOL); // Instancia de um socket
 
@@ -15,7 +15,7 @@ Socket::Socket(string host, int port) {
 
     socket_config(host, port);
 
-    is_connected = bind_socket(socket_descriptor, (struct sockaddr*)&server_address, sizeof(server_address));
+    is_connected = bind(socket_descriptor, (struct sockaddr*)&server_address, sizeof(server_address));
 
     if(is_connected){
         cout << "Ouvindo na porta " << port << endl;
@@ -23,7 +23,7 @@ Socket::Socket(string host, int port) {
     }
     else{
         cout << "Verifique se a porta " << port << " esta ocupada" << endl;
-        close_socket(socket_descriptor);
+        close_socket();
     }
 }
 
@@ -45,8 +45,8 @@ void Socket::socket_config(string host, int port) {
 /**
 * Realiza a conexão do socket.
 */
-bool Socket::bind_socket(int *socket_descriptor, struct sockaddr* client_address) {
-    const int is_binded = bind(socket_descriptor, (struct sockaddr)&client_address, sizeof(client_address));
+bool Socket::bind_socket(int &socket_descriptor, struct sockaddr_in &server) {
+    const int is_binded = bind(socket_descriptor, (struct sockaddr*)&server, sizeof(server));
 
     return is_binded == 0;
 }
@@ -61,9 +61,9 @@ bool Socket::listen_socket(int queue_length) {
 * Retorna a primeira conexão na fila de conexões
 */
 int Socket::accept_socket() {
-    const int socket_accepted = accept(this->socket_descriptor, (struct sockaddr)&client_address, &address_length);
+    const int socket_accepted = accept(socket_descriptor, (struct sockaddr*)&client_address, &address_length);
 
-    return socket;
+    return socket_accepted;
 }
 
 /**
@@ -87,22 +87,28 @@ sockaddr_in Socket::get_client_address() {
 /**
 * Define o timer de conexão
 */
-void Socket::set_time_out() {
+void Socket::set_time_out(int &socket, int limit_time) {
     timeval elapsed_time;
-    elapsed_time.tv_sec = time;
+    elapsed_time.tv_sec = limit_time;
     elapsed_time.tv_usec = 0;
 
-    setsockopt(socket_descriptor, SOL_SOCKET, SO_RCVTIMEO, (char *)&elapsed_time, sizeof(timeval));
+    setsockopt(socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&elapsed_time, sizeof(timeval));
 }
 
 /**
 * Fecha a conexão do socket.
-* @param int socket_descriptor: por padrão utiliza o socket embutido na classe que é instanciado no construtor.
+* @param int socket_descriptor
 */
-void Socket::close_socket(int *socket_descriptor = this->socket_descriptor) {
-    close(socket_descriptor);
+void Socket::close_socket(int &socket) { // Talvez não funcione
+    close(socket);
 }
 
+/**
+* Fecha a conexão do socket embutido na classe.
+*/
+void Socket::close_socket() {
+    close(socket_descriptor);
+}
 
 
 

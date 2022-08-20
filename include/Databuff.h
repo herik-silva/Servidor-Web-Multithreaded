@@ -11,6 +11,8 @@ class Databuff
     protected:
 
     private:
+        int buffer_length;
+
 };
 
 #endif // DATABUFF_H
