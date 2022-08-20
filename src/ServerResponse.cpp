@@ -24,26 +24,26 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
         cout << "Conexão iniciada com o cliente " << ip_string << ":" << ntohs(client_address.sin_port) << endl << endl;
     }
 
-    Databuff receiver_data = socket_client->receiver_socket(socket_descriptor);
+    Databuff receiver_data = socket_client.receiver_socket(socket_descriptor);
     if(receiver_data.get_buffer_length() > 0){
         request = string(receiver_data.get_content(), 0, receiver_data.get_buffer_length());
         if(Debug){
             cout<< request << endl;
         }
 
-        headers = split(request, '\n');
-        headers = split(headers[0], ' ');
-        extension_list = split(headers[1], '.');
+        headers = split_string(request, '\n');
+        headers = split_string(headers[0], ' ');
+        extension_list = split_string(headers[1], '.');
 
         try{
             if(headers[0] == "GET"){
                 if(Debug){
                     cout << "Uma requisiao GET" << endl;
-                    cout << "Pasta desejada: " << header[1] << endl;
+                    cout << "Pasta desejada: " << headers[1] << endl;
                     cout << "Extensao: " << extension_list[extension_list.size()-1] << endl;
                 }
 
-                // receiver_get(...)
+                get_receiver(thread_id, socket_descriptor, client_address, directory, directory+headers[1], extension_list[extension_list.size()-1]);
             }
             else{
                 throw(headers[0]);
@@ -51,8 +51,8 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
         }
         catch(string error){
             string data = "400 Bad Request";
-            int length = aux.size();
-            data += //getStatus(3, length, "html");
+            int length = data.size();
+            data += get_status(3, length, "html");
 
             if(Debug){
                 cout << data << endl;
@@ -72,6 +72,24 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
     }
 }
 
+vector<string> ServerResponse::split_string(string value, char break_point) {
+    string aux_string = "";
+    vector<string> header_content;
+
+    for(int index=0; index<(int)value.size(); index++){
+        if(value[index] != break_point){
+            aux_string += value[index];
+        }
+        else{
+            header_content.push_back(aux_string);
+            aux_string = "";
+        }
+    }
+
+    header_content.push_back(aux_string);
+    return header_content;
+}
+
 void ServerResponse::get_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory, string root, string extension) {
     string string_aux = "", data = "";
     int length = 0;
@@ -80,8 +98,17 @@ void ServerResponse::get_receiver(int thread_id, int socket_descriptor, sockaddr
         cout << "Root: " << root << endl;
     }
 
-    if(arq_stream(root, length, string_aux)){
-
+    if(arq_stream(root, length, string_aux)){ // Caso o arquivo tenha sido encontrado, envie o arquivo.
+        data = get_status(1, length, extension);
+        data += string_aux;
+        socket_client.send_data(socket_descriptor, data);
+        request_receiver(thread_id, socket_descriptor, client_address, directory);
+    }
+    else{ // Caso contrário, envia o arquivo NOT_FOUND.html
+        data = get_status(2, length, extension);
+        data += string_aux;
+        socket_client.send_data(socket_descriptor, data);
+        socket_client.close_socket(socket_descriptor);
     }
 }
 
@@ -141,8 +168,6 @@ void ServerResponse::read_file(fstream &file, string &content_file, int length) 
 }
 
 string ServerResponse::get_status(int response, int length, string extension) {
-    string text;
-    MimeType mime_type;
     char data_buffer[256];
     time_t rawtime;
     struct tm * timeinfo;
@@ -162,10 +187,10 @@ string ServerResponse::get_status(int response, int length, string extension) {
 }
 
 string ServerResponse::check_status(int status_code) {
-    const status_list[3][2] = { {200, "OK"}, {404, "Not Found"}, {400, "Bad Request"} };
+    const string status_list[3][2] = { {"200", "OK"}, {"404", "Not Found"}, {"400", "Bad Request"} };
     string selected_status = "";
     for(int index=0; index<3; index++){
-        if(status_list[index][0] == status_code){
+        if(status_list[index][0] == to_string(status_code)){
             selected_status = status_list[index][1];
         }
     }

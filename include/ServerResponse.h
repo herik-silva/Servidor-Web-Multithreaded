@@ -3,15 +3,14 @@
 
 #define STATUS_CODE_ERROR -1
 #define STATUS_CODE_OK 200
-#define NOT_FOUND "public/404.html
+#define NOT_FOUND "public/404.html"
 
-#include <Socket.h>
+#include "Socket.h"
 #include <vector>
 #include <string>
-#include <MimeType.h>
+#include "MimeType.h"
 #include <fstream>
 #include <ctime>
-
 
 using namespace std;
 
@@ -19,11 +18,12 @@ class ServerResponse {
     public:
         ServerResponse() {};
         virtual ~ServerResponse() {};
+        string get_status(int response, int length, string extension);
+        vector<string> split_string(string value, char break_point);
         void request_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory);
         void get_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory, string root, string extension);
         bool arq_stream(string root, int &length, string &content_file);
         void read_file(fstream &file, string &content_file, int length);
-        string get_status(int response, int length, string extension);
 
     private:
         Socket socket_client;
@@ -45,7 +45,7 @@ class ServerResponse {
         };
 
         string check_status(int status_code);
-        string get_message(string date_buffer, int content_length, bool use_keep_alive = false, string extension);
+        string get_message(int status_code, string date_buffer, int content_length, bool use_keep_alive, string extension);
 };
 
 #endif // SERVERRESPONSE_H

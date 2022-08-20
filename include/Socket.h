@@ -16,6 +16,7 @@ using namespace std;
 
 class Socket {
     public:
+        Socket() {};
         Socket(string host, int port);
         virtual ~Socket();
         void socket_config(string host, int port);
