@@ -4,13 +4,13 @@
 #define CODE_STATUS_ERROR -1
 #define INTERNET_PROTOCOL 0
 
+#include <iostream>
+#include <string.h>
+
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <Databuff.h>
-
-#include <iostream>
-#include <string.h>
 
 using namespace std;
 
@@ -27,6 +27,7 @@ class Socket {
         void close_socket(int &socket);
         void close_socket();
         void set_time_out(int &socket, int limit_time);
+        Databuff receiver_socket(int &socket);
     protected:
 
     private:

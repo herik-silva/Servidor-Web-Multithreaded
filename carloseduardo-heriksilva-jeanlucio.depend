@@ -2,8 +2,20 @@
 1660651568 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/main.cpp
 	<iostream>
 
-1661027772 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Databuff.cpp
+1661037667 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Databuff.cpp
 	"Databuff.h"
 
-1661036656 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Databuff.h
+1661037751 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Databuff.h
+	<string.h>
+
+1661038237 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Socket.cpp
+	"Socket.h"
+
+1661038229 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Socket.h
+	<iostream>
+	<string.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<Databuff.h>
 

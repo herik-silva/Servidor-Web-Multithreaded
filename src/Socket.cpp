@@ -111,6 +111,17 @@ void Socket::close_socket() {
     close(socket_descriptor);
 }
 
+Databuff Socket::receiver_socket(int &socket) {
+    Databuff data_buffer = Databuff();
+    const ssize_t buffer_length = recv(socket, &data_buffer, data_buffer.get_max_buffer_length(), 0);
+    data_buffer.set_buffer_length(buffer_length);
+
+    return data_buffer;
+}
+
+
+
+
 
 
 
