@@ -25,14 +25,19 @@ Socket::Socket(string host, int port) {
     }
     else{
         cout << "Verifique se a porta " << port << " esta ocupada" << endl;
-        close(socket_descriptor);
+        close_socket(socket_descriptor);
     }
 }
 
 Socket::~Socket() {
-    //dtor
+    close_socket();
 }
 
+/**
+* Realiza a configuração do socket
+* @param string host: endereço da conexão
+* @param int port: porta de conexão
+*/
 void Socket::socket_config(string host, int port) {
     server_address.sin_port = htons(port);
     server_address.sin_family = AF_INET;
@@ -50,12 +55,13 @@ bool Socket::bind_socket(int *socket_descriptor, struct sockaddr* client_address
 
 bool Socket::listen_socket(int queue_length) {
     const int is_ok = listen(this->socket_descriptor, queue_length);
-    this->close_
+
     return is_ok == 0;
 }
 
 /**
 * Fecha a conexão do socket.
+* @param int socket_descriptor: por padrão utiliza o socket embutido na classe que é instanciado no construtor.
 */
 void Socket::close_socket(int *socket_descriptor = this->socket_descriptor) {
     close(socket_descriptor);
