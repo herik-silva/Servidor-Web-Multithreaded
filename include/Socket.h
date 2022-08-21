@@ -28,7 +28,6 @@ class Socket {
         void close_socket();
         void set_time_out(int &socket, int limit_time);
         Databuff receiver_socket(int &socket);
-    protected:
 
     private:
     int socket_descriptor;

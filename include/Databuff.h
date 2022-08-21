@@ -13,7 +13,6 @@ class Databuff {
         int get_buffer_length();
         int get_max_buffer_length();
         void set_buffer_length(int buffer_length);
-    protected:
 
     private:
         int buffer_length;

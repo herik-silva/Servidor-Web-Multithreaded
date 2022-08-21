@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="teste" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
@@ -34,8 +35,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Databuff.h" />
+		<Unit filename="include/HttpServer.h" />
 		<Unit filename="include/Socket.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Databuff.cpp" />
+		<Unit filename="src/HttpServer.cpp" />
 		<Unit filename="src/Socket.cpp" />
 		<Extensions />
 	</Project>

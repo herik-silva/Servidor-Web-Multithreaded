@@ -1,21 +1,44 @@
 # depslib dependency file v1.0
-1660651568 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/main.cpp
+1661045444 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/main.cpp
+	<string>
 	<iostream>
+	<HttpServer.h>
 
-1661037667 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Databuff.cpp
+1661038505 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Databuff.cpp
 	"Databuff.h"
 
-1661037751 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Databuff.h
+1661038526 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Databuff.h
 	<string.h>
 
 1661038237 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Socket.cpp
 	"Socket.h"
 
-1661038229 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Socket.h
+1661038520 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Socket.h
 	<iostream>
 	<string.h>
 	<sys/socket.h>
 	<arpa/inet.h>
 	<unistd.h>
 	<Databuff.h>
+
+1661045376 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/HttpServer.h
+	<thread>
+	<Socket.h>
+	<MimeType.h>
+	<string>
+
+1661045349 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/HttpServer.cpp
+	"HttpServer.h"
+
+1661041521 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/Formatter.cpp
+	"Formatter.h"
+
+1661041750 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/Formatter.h
+	<string>
+
+1661043295 source:/home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/src/MimeType.cpp
+	"MimeType.h"
+
+1661043278 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/MimeType.h
+	<string>
 
