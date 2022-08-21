@@ -1,8 +1,22 @@
-<html>
-  <head>
-    <title></title>
-    <meta content="">
-    <style></style>
-  </head>
-  <body></body>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bad Request 400</title>
+</head>
+<body>
+  <h1>Bad Request</h1>
+  <img src="images/gandalf.gif">
+  <br>
+  <audio src="sounds/Sax-Gandalf.mp3" id="audio" controls hidden loop></audio>
+  <script>
+    console.log("AUDIO OK!");
+    document.querySelector("html").addEventListener("click", ()=>{
+      console.log("Reproduzir audio");
+      document.getElementById("audio").play();
+    })
+  </script>
+</body>
 </html>
