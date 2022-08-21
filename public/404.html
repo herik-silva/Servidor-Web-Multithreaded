@@ -9,5 +9,23 @@
 <body>
     <h1>Página não encontrada!</h1>
     <img src="images/404.png">
+    <br>
+    <span>Redirecionando a pagina em <strong id="timer">5</strong>...</span>
+    <script>
+        var left_time = 5;
+        setTimeout(()=>{
+            window.open("/index.html", "_self");
+        },left_time * 1000);
+
+        var interval = setInterval(()=>{
+            if(left_time>0){
+                left_time--;
+                document.getElementById("timer").innerText = left_time;
+            }
+            else{
+                clearInterval(interval);
+            }
+        },1000)
+    </script>
 </body>
 </html>

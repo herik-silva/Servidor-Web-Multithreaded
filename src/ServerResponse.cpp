@@ -209,13 +209,7 @@ string ServerResponse::check_status(int status_code) {
 }
 
 string ServerResponse::get_message(int status_code, string date_buffer, int content_length, bool use_keep_alive, string extension) {
-    if(Debug){
-        cout << "PEGANDO MENSAGEM" << endl;
-    }
     const string status = check_status(status_code);
-
-    cout << "\n\n\nSTATUS: " << status << endl;
-
     string content_type = "", text = "";
 
     for(int index=0; index<14; index++){
@@ -246,12 +240,3 @@ string ServerResponse::get_message(int status_code, string date_buffer, int cont
 
     return text;
 }
-
-
-
-
-
-
-
-
-
