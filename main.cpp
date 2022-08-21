@@ -1,6 +1,6 @@
-#include <string>
 #include <iostream>
 #include <HttpServer.h>
+#include <Socket.h>
 
 using namespace std;
 
@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     cout << "Path: " << directory << endl;
 
     HttpServer server = HttpServer("0.0.0.0", 5050, directory);
+    server.init_server();
 
     return 0;
 }

@@ -24,6 +24,11 @@ class ServerResponse {
         void get_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory, string root, string extension);
         bool arq_stream(string root, int &length, string &content_file);
         void read_file(fstream &file, string &content_file, int length);
+        int	operator()(int thread_id, int clientSockfd, sockaddr_in clientAddr, string dir) {
+            request_receiver(thread_id, clientSockfd, clientAddr, dir);
+            cout << "PASSOU" << endl;
+            return (0);
+        }
 
     private:
         Socket socket_client;

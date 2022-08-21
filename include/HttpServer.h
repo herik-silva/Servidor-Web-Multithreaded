@@ -4,7 +4,7 @@
 #include <thread>
 #include <Socket.h>
 #include <string>
-#include <ResponseServer.h>
+#include <ServerResponse.h>
 
 using namespace std;
 

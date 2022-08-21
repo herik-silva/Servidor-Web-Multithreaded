@@ -31,10 +31,12 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
             cout<< request << endl;
         }
 
+        cout << "1"<<endl;
         headers = split_string(request, '\n');
+        cout << "2"<<endl;
         headers = split_string(headers[0], ' ');
+        cout << "3"<<endl;
         extension_list = split_string(headers[1], '.');
-
         try{
             if(headers[0] == "GET"){
                 if(Debug){
@@ -75,7 +77,6 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
 vector<string> ServerResponse::split_string(string value, char break_point) {
     string aux_string = "";
     vector<string> header_content;
-
     for(int index=0; index<(int)value.size(); index++){
         if(value[index] != break_point){
             aux_string += value[index];
@@ -87,6 +88,10 @@ vector<string> ServerResponse::split_string(string value, char break_point) {
     }
 
     header_content.push_back(aux_string);
+    cout << "\n\n\n" << endl;
+    cout << header_content[0] << endl;
+    cout << "\n\n\n" << endl;
+
     return header_content;
 }
 
@@ -194,15 +199,18 @@ string ServerResponse::check_status(int status_code) {
             selected_status = status_list[index][1];
         }
     }
-
+    cout << "Status: " << selected_status << endl;
     if(selected_status.size() > 0){
         return selected_status;
     }
 
-    throw "status_code invalido";
+    return "TESTE";
 }
 
 string ServerResponse::get_message(int status_code, string date_buffer, int content_length, bool use_keep_alive, string extension) {
+    if(Debug){
+        cout << "PEGANDO MENSAGEM" << endl;
+    }
     const string status = check_status(status_code);
     string content_type = "", text = "";
 

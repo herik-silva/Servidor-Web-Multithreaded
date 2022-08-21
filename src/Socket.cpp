@@ -2,13 +2,14 @@
 
 Socket::Socket(string host, int port) {
     int option_value = 1;
-    int is_connected;
-
-    // Ajuda a evitar erros como endereço já em uso.
-    int successful = setsockopt(socket_descriptor, SOL_SOCKET, SO_REUSEADDR, &option_value, sizeof(int));
-
+    int is_connected, successful;
+    cout << "Teste" << endl;
     socket_descriptor = socket(AF_INET, SOCK_STREAM, INTERNET_PROTOCOL); // Instancia de um socket
 
+    // Ajuda a evitar erros como endereço já em uso.
+    successful = setsockopt(socket_descriptor, SOL_SOCKET, SO_REUSEADDR, &option_value, sizeof(int));
+
+    cout << "socket: " << successful << endl;
     if(successful == CODE_STATUS_ERROR){
         cout << "Instancia invalida!" << endl;
     }
@@ -17,7 +18,7 @@ Socket::Socket(string host, int port) {
 
     is_connected = bind(socket_descriptor, (struct sockaddr*)&server_address, sizeof(server_address));
 
-    if(is_connected){
+    if(is_connected != CODE_STATUS_ERROR){
         cout << "Ouvindo na porta " << port << endl;
         cout << "http://localhost:" << port << endl;
     }
@@ -113,7 +114,7 @@ void Socket::close_socket() {
 
 Databuff Socket::receiver_socket(int &socket) {
     Databuff data_buffer = Databuff();
-    const ssize_t buffer_length = recv(socket, &data_buffer, data_buffer.get_max_buffer_length(), 0);
+    const ssize_t buffer_length = recv(socket, data_buffer.get_content(), data_buffer.get_max_buffer_length(), 0);
     data_buffer.set_buffer_length(buffer_length);
 
     return data_buffer;
