@@ -1,6 +1,6 @@
 #include "ServerResponse.h"
 
-#define Debug false
+#define Debug true
 
 void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory) {
     string request = "";
@@ -31,11 +31,8 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
             cout<< request << endl;
         }
 
-        cout << "1"<<endl;
         headers = split_string(request, '\n');
-        cout << "2"<<endl;
         headers = split_string(headers[0], ' ');
-        cout << "3"<<endl;
         extension_list = split_string(headers[1], '.');
         try{
             if(headers[0] == "GET"){
@@ -45,6 +42,7 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
                     cout << "Extensao: " << extension_list[extension_list.size()-1] << endl;
                 }
 
+                // Linha 93
                 get_receiver(thread_id, socket_descriptor, client_address, directory, directory+headers[1], extension_list[extension_list.size()-1]);
             }
             else{
@@ -88,14 +86,11 @@ vector<string> ServerResponse::split_string(string value, char break_point) {
     }
 
     header_content.push_back(aux_string);
-    cout << "\n\n\n" << endl;
-    cout << header_content[0] << endl;
-    cout << "\n\n\n" << endl;
 
     return header_content;
 }
 
-void ServerResponse::get_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory, string root, string extension) {
+int ServerResponse::get_receiver(int thread_id, int socket_descriptor, sockaddr_in client_address, string directory, string root, string extension) {
     string string_aux = "", data = "";
     int length = 0;
 
@@ -106,15 +101,23 @@ void ServerResponse::get_receiver(int thread_id, int socket_descriptor, sockaddr
     if(arq_stream(root, length, string_aux)){ // Caso o arquivo tenha sido encontrado, envie o arquivo.
         data = get_status(1, length, extension);
         data += string_aux;
+        if(Debug){
+            cout << "\n\nArquivo encontrado: " << data << endl;
+        }
         socket_client.send_data(socket_descriptor, data);
         request_receiver(thread_id, socket_descriptor, client_address, directory);
     }
     else{ // Caso contrário, envia o arquivo NOT_FOUND.html
-        data = get_status(2, length, extension);
+        data = get_status(2, length, "html");
         data += string_aux;
+        if(Debug){
+            cout << data << endl;
+        }
         socket_client.send_data(socket_descriptor, data);
         socket_client.close_socket(socket_descriptor);
     }
+
+    return 0;
 }
 
 bool ServerResponse::arq_stream(string root, int &length, string &content_file) {
@@ -141,7 +144,6 @@ bool ServerResponse::arq_stream(string root, int &length, string &content_file) 
             length = file.tellg();
 
             read_file(file, content_file, length);
-
             return false;
         }
         else{
@@ -199,12 +201,11 @@ string ServerResponse::check_status(int status_code) {
             selected_status = status_list[index][1];
         }
     }
+
     cout << "Status: " << selected_status << endl;
     if(selected_status.size() > 0){
         return selected_status;
     }
-
-    return "TESTE";
 }
 
 string ServerResponse::get_message(int status_code, string date_buffer, int content_length, bool use_keep_alive, string extension) {
@@ -212,6 +213,9 @@ string ServerResponse::get_message(int status_code, string date_buffer, int cont
         cout << "PEGANDO MENSAGEM" << endl;
     }
     const string status = check_status(status_code);
+
+    cout << "\n\n\nSTATUS: " << status << endl;
+
     string content_type = "", text = "";
 
     for(int index=0; index<14; index++){

@@ -47,7 +47,7 @@
 	<HttpServer.h>
 	<Socket.h>
 
-1661021684 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/HttpServer.h
+1661119491 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/HttpServer.h
 	<thread>
 	<Socket.h>
 	<string>
@@ -87,10 +87,10 @@
 	<ctime>
 	"MimeType.h"
 
-1661114250 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/ServerResponse.cpp
+1661119595 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/ServerResponse.cpp
 	"ServerResponse.h"
 
-1661110129 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/ServerResponse.h
+1661117743 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/ServerResponse.h
 	"Socket.h"
 	<vector>
 	<string>
