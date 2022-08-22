@@ -77,6 +77,8 @@ int Socket::accept_socket() {
 
 /**
 * Envia dados pelo socket descritor.
+* @param socket: socket em que será enviado os dados.
+* @param message: conteúdo que será enviado.
 * @return Retorna a quantidade de bytes enviados se tudo ocorrer bem. Se ocorrer algum erro, retorna -1.
 */
 int Socket::send_data(int socket, string message) {
