@@ -42,18 +42,19 @@
 1661043278 /home/herikaiser/workspace/trabalho/carloseduardo-heriksilva-jeanlucio/include/MimeType.h
 	<string>
 
-1661021206 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/main.cpp
+1661177388 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/main.cpp
 	<iostream>
 	<HttpServer.h>
 	<Socket.h>
 
-1661119491 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/HttpServer.h
+1661173642 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/HttpServer.h
 	<thread>
 	<Socket.h>
 	<string>
 	<ServerResponse.h>
+	<sys/stat.h>
 
-1661020658 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/Socket.h
+1661177247 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/Socket.h
 	<iostream>
 	<string.h>
 	<sys/socket.h>
@@ -67,13 +68,13 @@
 1660970645 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/MimeType.h
 	<string>
 
-1661113232 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/Databuff.cpp
+1661174903 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/Databuff.cpp
 	"Databuff.h"
 
-1661021725 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/HttpServer.cpp
+1661177550 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/HttpServer.cpp
 	"HttpServer.h"
 
-1661113466 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/Socket.cpp
+1661177263 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/Socket.cpp
 	"Socket.h"
 
 1660970639 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/MimeType.cpp
@@ -87,7 +88,7 @@
 	<ctime>
 	"MimeType.h"
 
-1661119595 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/ServerResponse.cpp
+1661172911 source:/home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/src/ServerResponse.cpp
 	"ServerResponse.h"
 
 1661117743 /home/herikaiser/workspace/trabalho/Servidor-Web-Multithreaded/include/ServerResponse.h

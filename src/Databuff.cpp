@@ -5,9 +5,7 @@ Databuff::Databuff() {
     buffer_length = 0;
 }
 
-Databuff::~Databuff() {
-    //dtor
-}
+Databuff::~Databuff() {}
 
 /**
 * Retorna o conteúdo do buffer.

@@ -16,24 +16,24 @@
 
 using namespace std;
 
-string prepare_arg(char* arg[]) {
-    int index = 1;
-    string directory = "";
+int main(int argc, char* argv[]) {
+    if(argv[1]){
+        string directory = argv[1];
+        int port = 5050;
 
-    while(arg[index]){
-        directory += arg[index];
-        index++;
+        if(argv[2]){
+            port = stoi(argv[2]);
+        }
+
+        cout << "Path: " << directory << endl;
+        cout << "Port: " << port << endl;
+
+        HttpServer server = HttpServer("0.0.0.0", port, directory);
+        server.init_server();
+
+        return 0;
     }
 
-    return directory;
-}
-
-int main(int argc, char* argv[]) {
-    string directory = prepare_arg(argv);
-    cout << "Path: " << directory << endl;
-
-    HttpServer server = HttpServer("0.0.0.0", 5050, directory);
-    server.init_server();
-
-    return 0;
+    cout << "Informe o caminho da pasta publica" << endl;
+    return -1;
 }

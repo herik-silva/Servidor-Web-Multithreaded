@@ -3,6 +3,7 @@
 
 #define CODE_STATUS_ERROR -1
 #define INTERNET_PROTOCOL 0
+#define REQUEST_ACCEPTED 0
 
 #include <iostream>
 #include <string.h>

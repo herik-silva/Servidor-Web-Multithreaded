@@ -42,7 +42,6 @@ void ServerResponse::request_receiver(int thread_id, int socket_descriptor, sock
                     cout << "Extensao: " << extension_list[extension_list.size()-1] << endl;
                 }
 
-                // Linha 93
                 get_receiver(thread_id, socket_descriptor, client_address, directory, directory+headers[1], extension_list[extension_list.size()-1]);
             }
             else{

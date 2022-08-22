@@ -5,6 +5,7 @@
 #include <Socket.h>
 #include <string>
 #include <ServerResponse.h>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ class HttpServer {
     private:
         Socket* socket_server;
         string directory;
+
+        bool directory_exists();
 };
 
 #endif // HTTPSERVER_H

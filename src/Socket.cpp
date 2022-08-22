@@ -3,13 +3,11 @@
 Socket::Socket(string host, int port) {
     int option_value = 1;
     int is_connected, successful;
-    cout << "Teste" << endl;
     socket_descriptor = socket(AF_INET, SOCK_STREAM, INTERNET_PROTOCOL); // Instancia de um socket
 
     // Ajuda a evitar erros como endereço já em uso.
     successful = setsockopt(socket_descriptor, SOL_SOCKET, SO_REUSEADDR, &option_value, sizeof(int));
 
-    cout << "socket: " << successful << endl;
     if(successful == CODE_STATUS_ERROR){
         cout << "Instancia invalida!" << endl;
     }
@@ -46,6 +44,9 @@ void Socket::socket_config(string host, int port) {
 
 /**
 * Realiza a conexão do socket.
+* @param socket_descriptor: socket que será conectado ao servidor
+* @param server: tipo de endereço endereço de socket IPv4
+* @return retorna true se a conexão foi estabelecida. Caso contrário, retorna false
 */
 bool Socket::bind_socket(int &socket_descriptor, struct sockaddr_in &server) {
     const int is_binded = bind(socket_descriptor, (struct sockaddr*)&server, sizeof(server));
@@ -53,14 +54,20 @@ bool Socket::bind_socket(int &socket_descriptor, struct sockaddr_in &server) {
     return is_binded == 0;
 }
 
+/**
+* Aceita solicitações do cliente e cria uma fila de solicitação de conexões.
+* @param queue_length: tamanho máximo da fila de solicitações.
+* @return retorna true se a solicitação foi adicionada na fila. Caso contrário, retorna false.
+*/
 bool Socket::listen_socket(int queue_length) {
-    const int is_ok = listen(this->socket_descriptor, queue_length);
+    const int request = listen(this->socket_descriptor, queue_length);
 
-    return is_ok == 0;
+    return request == REQUEST_ACCEPTED;
 }
 
 /**
 * Retorna a primeira conexão na fila de conexões
+* @return Caso a conexão seja aceita, retorna o descritor de arquivo não negativo. Caso contrário, retorna -1.
 */
 int Socket::accept_socket() {
     const int socket_accepted = accept(socket_descriptor, (struct sockaddr*)&client_address, &address_length);
@@ -82,12 +89,17 @@ int Socket::send_data(int socket, string message) {
     return bytes_sent;
 }
 
+/**
+* @return retorna o endereço do cliente.
+*/
 sockaddr_in Socket::get_client_address() {
     return client_address;
 }
 
 /**
 * Define o timer de conexão
+* @param socket: recebe um socket por referência.
+* @param limite_time: tempo limite de conexão do socket em segundos.
 */
 void Socket::set_time_out(int &socket, int limit_time) {
     timeval elapsed_time;
@@ -112,6 +124,11 @@ void Socket::close_socket() {
     close(socket_descriptor);
 }
 
+/**
+* Recebe o socket e insere os dados no Databuff.
+* @param socket: recebe um socket por referência.
+* @return retorna um Databuff com os dados transmitidos pelo socket.
+*/
 Databuff Socket::receiver_socket(int &socket) {
     Databuff data_buffer = Databuff();
     const ssize_t buffer_length = recv(socket, data_buffer.get_content(), data_buffer.get_max_buffer_length(), 0);
@@ -119,10 +136,3 @@ Databuff Socket::receiver_socket(int &socket) {
 
     return data_buffer;
 }
-
-
-
-
-
-
-
