@@ -1,14 +1,14 @@
-/**
-* TRABALHO FINAL DE REDES
-* --------------------------------------
-* Servidor Web Multithreads
+/*---------------------------------------------*
+* TRABALHO FINAL DE REDES DE COMPUTADORES
+*       Servidor Web Multithreads
+* ---------------------------------------------
 * Disciplina: Redes de Computadores
 * Professor: Samuel Pereira Dias
 * Alunos:
 *  - Carlos Eduardo de Sousa: 0048507
 *  - Herik Aparecida Ramos da Silva: 0048843
 *  - Jean Lucio Campos: 0048042
-*/
+*----------------------------------------------*/
 
 #include <iostream>
 #include <HttpServer.h>
